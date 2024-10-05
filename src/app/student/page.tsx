@@ -23,7 +23,7 @@ export default function StudentPage() {
   const [myEnrollments, setMyEnrollments] = useState<Course[] | null>(null);
   const [loadingMyEnrollments, setLoadingMyEnrollments] = useState(false);
 
-  const [loadingEnrolling, setLoadingEnrolling] = useState(false);
+  //const [loadingEnrolling, setLoadingEnrolling] = useState(false);
   const [loadingDropping, setLoadingDropping] = useState("");
   const [courseNo, setCourseNo] = useState("");
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function StudentPage() {
 
   const callEnrollApi = async () => {
     try {
-      const resp = await axios.post(
+       await axios.post(
         "/api/enrollments",
         {
           courseNo,
@@ -82,7 +82,7 @@ export default function StudentPage() {
   const callDropApi = async (drop_courseNo: string) => {
     setLoadingDropping(drop_courseNo);
     try {
-      const resp = await axios.delete("/api/enrollments", {
+       await axios.delete("/api/enrollments", {
         data: {
           courseNo: drop_courseNo,
         },
@@ -117,10 +117,10 @@ export default function StudentPage() {
         <Title order={4}>My Course(s)</Title>
 
         {myEnrollments &&
-          myEnrollments.map((enroll: any) => (
+          myEnrollments.map((enroll: Course) => (
             <Group my="xs" key={enroll.courseNo}>
               <Text>
-                {enroll.courseNo} - {enroll.course.title}
+                {enroll.courseNo} - {enroll.title}
               </Text>
               <Button
                 color="red"
